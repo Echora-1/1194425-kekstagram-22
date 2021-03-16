@@ -1,4 +1,4 @@
-import {} from './editing-form.js';
+import {} from './upload-form.js';
 
 
 

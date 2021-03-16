@@ -1,33 +1,36 @@
 import {isEscPressed, isClick} from './utils.js';
 
-const imageUploadButtonElement = document.querySelector('#upload-file');
-const ImageEditingFormElement = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
-const buttonCloseEditFormElement = document.querySelector('#upload-cancel');
+const imageUploadFormElement = document.querySelector('.img-upload__form');
+const imageUploadButtonElement = imageUploadFormElement.querySelector('#upload-file');
+const imageUploadOverlayElement = imageUploadFormElement.querySelector('.img-upload__overlay');
+const buttonCloseUploadOverlayElement = imageUploadFormElement.querySelector('#upload-cancel');
 
 const openImageEditingForm = () => {
-  ImageEditingFormElement.classList.remove('hidden');
+  imageUploadOverlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', (evt) => onImageEditingFormClosePressedEsc(evt));
-  buttonCloseEditFormElement.addEventListener('click', (evt) => onImageEditingFormClosePressedButtonClose(evt));
+  buttonCloseUploadOverlayElement.addEventListener('click', (evt) => onImageEditingFormClosePressedButtonClose(evt));
 };
 
-const closeImageEditingForm = () => {
-  ImageEditingFormElement.classList.add('hidden');
+const closeImageEditingForm = (evt) => {
+  evt.preventDefault();
+  imageUploadOverlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  imageUploadFormElement.reset();
   document.removeEventListener('keydown', (evt) => onImageEditingFormClosePressedEsc(evt));
-  buttonCloseEditFormElement.removeEventListener('click', (evt) => onImageEditingFormClosePressedEsc(evt));
+  buttonCloseUploadOverlayElement.removeEventListener('click', (evt) => onImageEditingFormClosePressedEsc(evt));
 };
 
 const onImageEditingFormClosePressedEsc = (evt) => {
   if(isEscPressed(evt)) {
-    closeImageEditingForm();
+    closeImageEditingForm(evt);
   }
 };
 
 const onImageEditingFormClosePressedButtonClose = (evt) => {
   if(isClick(evt)) {
-    closeImageEditingForm();
+    closeImageEditingForm(evt);
   }
 };
 
