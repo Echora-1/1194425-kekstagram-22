@@ -1,4 +1,4 @@
-import {} from './upload-form.js';
+import {} from './image-editing-form.js';
 
 
 
