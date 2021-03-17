@@ -8,8 +8,12 @@ const increaseButtonElement = document.querySelector('.scale__control--bigger');
 const previewСontainerElement = document.querySelector('.img-upload__preview');
 const imagePreviewElement = previewСontainerElement.querySelector('img');
 
-scaleValueElement.value = `${SCALE_DEFAULT_VALUE}%`;
-imagePreviewElement.style.transform = 'scale(1)';
+const resetScale = () => {
+  scaleValueElement.value = `${SCALE_DEFAULT_VALUE}%`;
+  imagePreviewElement.style.transform = 'scale(1)';
+};
+
+resetScale();
 
 const decreaseScale = () => {
   if(Number.parseInt(scaleValueElement.value) > SCALE_MIN_VALUE) {
@@ -27,3 +31,5 @@ const increaseScale = () => {
 
 decreaseButtonElement.addEventListener('click', decreaseScale)
 increaseButtonElement.addEventListener('click', increaseScale)
+
+export {resetScale};
