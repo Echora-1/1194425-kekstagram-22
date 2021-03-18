@@ -6,4 +6,9 @@ const isClick = (evt) => {
   return evt.type === 'click';
 };
 
-export {isEscPressed, isClick};
+const removeClasses = (el, mask) => {
+  const re = new RegExp(`^${mask.replace(/\*/g, '\\S+')}`);
+  el.classList.remove(...[...el.classList].filter(n => n.match(re)));
+}
+
+export {isEscPressed, isClick, removeClasses};

@@ -1,5 +1,6 @@
 import {isEscPressed, isClick} from './utils.js';
-import {resetScale} from './image-scale.js'
+import {resetScale} from './image-scale.js';
+import {setOriginalState} from './image-filters.js';
 
 const bodyElement = document.querySelector('body');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
@@ -22,6 +23,7 @@ const closeEditForm = (evt) => {
   document.removeEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
   buttonCloseEditFormElement.removeEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
   resetScale();
+  setOriginalState();
 };
 
 const onEditFormClosePressedEsc = (evt) => {
@@ -46,5 +48,6 @@ imageUploadButtonElement.addEventListener('change', () => {
     reader.readAsDataURL(file);
   }
 });
+
 
 export {};
