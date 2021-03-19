@@ -1,12 +1,15 @@
-import {isEscPressed, isClick} from './utils.js';
+import {isEscPressed, isClick, isActiveElement} from './utils.js';
 import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
+import {} from './hashtag-validation.js';
 
 const bodyElement = document.querySelector('body');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
 const imageUploadButtonElement = imageUploadFormElement.querySelector('#upload-file');
 const editFormElement = imageUploadFormElement.querySelector('.img-upload__overlay');
 const buttonCloseEditFormElement = imageUploadFormElement.querySelector('#upload-cancel');
+const hashtagInputElement = document.querySelector('.text__hashtags');
+const commentInputElement = document.querySelector('.text__description');
 
 const openEditForm = () => {
   editFormElement.classList.remove('hidden');
@@ -27,7 +30,7 @@ const closeEditForm = (evt) => {
 };
 
 const onEditFormClosePressedEsc = (evt) => {
-  if(isEscPressed(evt)) {
+  if(isEscPressed(evt) && !(isActiveElement(hashtagInputElement)) && !(isActiveElement(commentInputElement))) {
     closeEditForm(evt);
   }
 };
@@ -48,6 +51,5 @@ imageUploadButtonElement.addEventListener('change', () => {
     reader.readAsDataURL(file);
   }
 });
-
 
 export {};

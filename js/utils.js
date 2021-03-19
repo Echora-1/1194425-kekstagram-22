@@ -11,4 +11,9 @@ const removeClasses = (el, mask) => {
   el.classList.remove(...[...el.classList].filter(n => n.match(re)));
 }
 
-export {isEscPressed, isClick, removeClasses};
+const isActiveElement = (input) => {
+  return input === document.activeElement;
+};
+
+export {isEscPressed, isClick, removeClasses, isActiveElement};
+
