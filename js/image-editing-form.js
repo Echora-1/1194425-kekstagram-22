@@ -11,6 +11,9 @@ const editFormElement = imageUploadFormElement.querySelector('.img-upload__overl
 const buttonCloseEditFormElement = imageUploadFormElement.querySelector('#upload-cancel');
 const hashtagInputElement = document.querySelector('.text__hashtags');
 const commentInputElement = document.querySelector('.text__description');
+const submitButtonElement = document.querySelector('.img-upload__submit');
+
+
 
 const openEditForm = () => {
   editFormElement.classList.remove('hidden');
@@ -57,5 +60,25 @@ imageUploadFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   sendData(new FormData(evt.target));
 });
+
+const addRedBorder = (element) => {
+  element.style.border= '3px solid red';
+  element.style.outline= 'none';
+  setTimeout(() => {
+    element.style.border= '';
+    element.style.outline= '';
+  }, 5000);
+};
+
+const onInputCheck = () => {
+  const inputFields = [hashtagInputElement, commentInputElement];
+  inputFields.forEach((input) => {
+    if(input.checkValidity() === false) {
+      addRedBorder(input);
+    }
+  })
+}
+
+submitButtonElement.addEventListener('click', onInputCheck);
 
 export {};
