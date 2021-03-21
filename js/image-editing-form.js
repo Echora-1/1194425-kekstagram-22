@@ -2,6 +2,7 @@ import {isEscPressed, isClick, isActiveElement} from './utils.js';
 import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
 import {} from './hashtag-validation.js';
+import {sendData} from './server-connection.js';
 
 const bodyElement = document.querySelector('body');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
@@ -50,6 +51,11 @@ imageUploadButtonElement.addEventListener('change', () => {
 
     reader.readAsDataURL(file);
   }
+});
+
+imageUploadFormElement.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  sendData(new FormData(evt.target));
 });
 
 export {};
