@@ -1,6 +1,6 @@
 const SEND_URL = 'https://22.javascript.pages.academy/kekstagram';
 
-const sendData = (onSuccess, body) => {
+const sendData = (onError, onSuccess, body) => {
   fetch(
     SEND_URL,
     {
@@ -12,11 +12,11 @@ const sendData = (onSuccess, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        console.log('error');
+        onError();
       }
     })
     .catch(() => {
-      console.log('error');
+      onError();
     });
 };
 

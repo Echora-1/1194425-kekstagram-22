@@ -3,10 +3,11 @@ import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
 import {} from './hashtag-validation.js';
 import {sendData} from './server-connection.js';
-import {showSuccessfulMessage} from './status-messages.js';
+import {showSuccessfulMessage, showErrorMessage, errorMessageElement} from './status-messages.js';
 
 const SHOW_TIME = 5000;
 const bodyElement = document.querySelector('body');
+const mainElement = document.querySelector('main');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
 const imageUploadButtonElement = imageUploadFormElement.querySelector('#upload-file');
 const editFormElement = imageUploadFormElement.querySelector('.img-upload__overlay');
@@ -18,7 +19,7 @@ const submitButtonElement = document.querySelector('.img-upload__submit');
 const openEditForm = () => {
   editFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  document.addEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
+  imageUploadFormElement.addEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
   buttonCloseEditFormElement.addEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
 };
 
@@ -26,14 +27,14 @@ const closeEditForm = () => {
   editFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   imageUploadFormElement.reset();
-  document.removeEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
+  imageUploadFormElement.removeEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
   buttonCloseEditFormElement.removeEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
   resetScale();
   setOriginalState();
 };
 
 const onEditFormClosePressedEsc = (evt) => {
-  if(isEscPressed(evt) && !(isActiveElement(hashtagInputElement)) && !(isActiveElement(commentInputElement))) {
+  if(isEscPressed(evt) && !(isActiveElement(hashtagInputElement)) && !(isActiveElement(commentInputElement)) && !(mainElement.contains(errorMessageElement))) {
     evt.preventDefault();
     closeEditForm(evt);
   }
@@ -64,7 +65,7 @@ const setSuccess = () => {
 
 imageUploadFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  sendData(setSuccess, new FormData(evt.target));
+  sendData(showErrorMessage, setSuccess, new FormData(evt.target));
 });
 
 const onInputCheck = () => {
