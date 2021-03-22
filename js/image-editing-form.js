@@ -3,6 +3,7 @@ import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
 import {} from './hashtag-validation.js';
 import {sendData} from './server-connection.js';
+import {showSuccessfulMessage} from './status-messages.js';
 
 const SHOW_TIME = 5000;
 const bodyElement = document.querySelector('body');
@@ -56,9 +57,14 @@ imageUploadButtonElement.addEventListener('change', () => {
   }
 });
 
+const setSuccess = () => {
+  closeEditForm();
+  showSuccessfulMessage();
+};
+
 imageUploadFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  sendData(closeEditForm, new FormData(evt.target));
+  sendData(setSuccess, new FormData(evt.target));
 });
 
 const onInputCheck = () => {
