@@ -1,9 +1,10 @@
-import {isEscPressed, isClick, isActiveElement} from './utils.js';
+import {isEscPressed, isClick, isActiveElement, addTemporaryRedBorder} from './utils.js';
 import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
 import {} from './hashtag-validation.js';
 import {sendData} from './server-connection.js';
 
+const SHOW_TIME = 5000;
 const bodyElement = document.querySelector('body');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
 const imageUploadButtonElement = imageUploadFormElement.querySelector('#upload-file');
@@ -13,8 +14,6 @@ const hashtagInputElement = document.querySelector('.text__hashtags');
 const commentInputElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('.img-upload__submit');
 
-
-
 const openEditForm = () => {
   editFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -22,8 +21,7 @@ const openEditForm = () => {
   buttonCloseEditFormElement.addEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
 };
 
-const closeEditForm = (evt) => {
-  evt.preventDefault();
+const closeEditForm = () => {
   editFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   imageUploadFormElement.reset();
@@ -35,12 +33,14 @@ const closeEditForm = (evt) => {
 
 const onEditFormClosePressedEsc = (evt) => {
   if(isEscPressed(evt) && !(isActiveElement(hashtagInputElement)) && !(isActiveElement(commentInputElement))) {
+    evt.preventDefault();
     closeEditForm(evt);
   }
 };
 
 const onEditFormClosePressedButtonClose = (evt) => {
   if(isClick(evt)) {
+    evt.preventDefault();
     closeEditForm(evt);
   }
 };
@@ -58,23 +58,14 @@ imageUploadButtonElement.addEventListener('change', () => {
 
 imageUploadFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  sendData(new FormData(evt.target));
+  sendData(closeEditForm, new FormData(evt.target));
 });
-
-const addRedBorder = (element) => {
-  element.style.border= '3px solid red';
-  element.style.outline= 'none';
-  setTimeout(() => {
-    element.style.border= '';
-    element.style.outline= '';
-  }, 5000);
-};
 
 const onInputCheck = () => {
   const inputFields = [hashtagInputElement, commentInputElement];
   inputFields.forEach((input) => {
     if(input.checkValidity() === false) {
-      addRedBorder(input);
+      addTemporaryRedBorder(input, SHOW_TIME);
     }
   })
 }

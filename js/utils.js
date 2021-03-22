@@ -15,5 +15,14 @@ const isActiveElement = (input) => {
   return input === document.activeElement;
 };
 
-export {isEscPressed, isClick, removeClasses, isActiveElement};
+const addTemporaryRedBorder = (element, showTime) => {
+  element.style.border= '3px solid red';
+  element.style.outline= 'none';
+  setTimeout(() => {
+    element.style.border= '';
+    element.style.outline= '';
+  }, showTime);
+};
+
+export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder};
 
