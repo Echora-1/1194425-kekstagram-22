@@ -1,8 +1,5 @@
-import {showWarningMessage} from './warning-message.js'
-
 const SEND_URL = 'https://22.javascript.pages.academy/kekstagram';
 const GET_URL = 'https://22.javascript.pages.academy/kekstagram/data';
-const WARNING_MESSAGE = 'При загрузке данных с сервера произошла ошибка. Попробуйте позже';
 
 const sendData = (onError, onSuccess, body) => {
   fetch(
@@ -24,7 +21,7 @@ const sendData = (onError, onSuccess, body) => {
     });
 };
 
-const getData = (onError) => {
+const getData = (onError,  onSuccess) => {
   fetch(GET_URL)
     .then((response) => {
       if (response.ok) {
@@ -34,12 +31,12 @@ const getData = (onError) => {
       }
     })
     .then((data) => {
-      console.log(data);
+      onSuccess(data);
     })
     .catch(() => {
       onError();
     });
 }
 
-getData(() => showWarningMessage(WARNING_MESSAGE));
+
 export {sendData, getData};

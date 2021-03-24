@@ -24,5 +24,14 @@ const addTemporaryRedBorder = (element, showTime) => {
   }, showTime);
 };
 
-export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder};
+const removeСhildByClass = (parentElement, childClass) => {
+  const arrayChildren = Array.from(parentElement.children);
+  arrayChildren.forEach((element) => {
+    if(element.classList.contains(childClass)) {
+      parentElement.removeChild(element);
+    }
+  });
+};
+
+export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder, removeСhildByClass};
 
