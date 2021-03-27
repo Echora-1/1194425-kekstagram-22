@@ -13,8 +13,6 @@ const resetScale = () => {
   imagePreviewElement.style.transform = 'scale(1)';
 };
 
-resetScale();
-
 const decreaseScale = () => {
   if(Number.parseInt(scaleValueElement.value) > SCALE_MIN_VALUE) {
     imagePreviewElement.style.transform = `scale(${(parseInt(scaleValueElement.value) - SCALE_STEP) / 100})`;
@@ -31,5 +29,7 @@ const increaseScale = () => {
 
 decreaseButtonElement.addEventListener('click', decreaseScale)
 increaseButtonElement.addEventListener('click', increaseScale)
+
+resetScale();
 
 export {resetScale};

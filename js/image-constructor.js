@@ -22,9 +22,23 @@ const createComment = (data) => {
   return comment;
 }
 
+const uploadСomments = (currentComments, comments) => {
+  return () => {
+    for (let i = currentComments; i <currentComments + COMMENTS_PER_UPLOAD && i < comments.length; i++) {
+      socialCommentsElement.append(createComment(comments[i]));
+      if( i === comments.length - 1) {
+        commentsLoaderElement.classList.add('hidden');
+      }
+    }
+    currentComments = currentComments + COMMENTS_PER_UPLOAD < comments.length ? currentComments + COMMENTS_PER_UPLOAD : comments.length;
+    socialCommentContainerElement.textContent = `${currentComments} из ${comments.length} комментариев`;
+  }
+};
+
 const onImageClick = (evt, src, description, likes,comments) => {
   const arrayComments = Array.from(comments);
   let numberCurrentComments = comments.length > COMMENTS_PER_UPLOAD ? COMMENTS_PER_UPLOAD : comments.length;
+  const onLoaderClick = uploadСomments(numberCurrentComments, arrayComments);
 
   evt.preventDefault();
 
@@ -69,25 +83,8 @@ const onImageClick = (evt, src, description, likes,comments) => {
     socialCommentsElement.append(createComment(arrayComments[i]));
   }
 
-  const onLoaderClick = uploadСomments(numberCurrentComments, arrayComments);
-
   commentsLoaderElement.addEventListener('click', onLoaderClick);
-
 };
-
-const uploadСomments = (currentComments, comments) => {
-  return () => {
-    for (let i = currentComments; i <currentComments + COMMENTS_PER_UPLOAD && i < comments.length; i++) {
-      socialCommentsElement.append(createComment(comments[i]));
-      if( i === comments.length - 1) {
-        commentsLoaderElement.classList.add('hidden');
-      }
-    }
-    currentComments = currentComments + COMMENTS_PER_UPLOAD < comments.length ? currentComments + COMMENTS_PER_UPLOAD : comments.length;
-    socialCommentContainerElement.textContent = `${currentComments} из ${comments.length} комментариев`;
-  }
-};
-
 
 const createImage = (dataItem) => {
   const image = templateImageElement.cloneNode(true);

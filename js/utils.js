@@ -33,5 +33,41 @@ const removeСhildByClass = (parentElement, childClass) => {
   });
 };
 
-export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder, removeСhildByClass};
+const getRandomFloatFromRange = (min, max, decimal = 0) => {
+  min = Math.abs(min);
+  max = Math.abs(max);
+  decimal = Math.abs(decimal);
+  return Math.abs((Math.random() * (max - min) + min).toFixed(decimal));
+}
+
+const setThrottle = (func, ms) => {
+  let ignore = false;
+  let lastArgs = null;
+  let lastThis = null;
+
+  const throttle = function() {
+    if(ignore) {
+      lastArgs = arguments;
+      lastThis = this;
+      return;
+    }
+
+    func.apply(this, arguments);
+
+    ignore = true;
+
+    setTimeout(() => {
+      ignore = false;
+      if(lastArgs) {
+        throttle.apply(lastThis, lastArgs);
+        lastArgs = null;
+        lastThis = null;
+      }
+    }, ms);
+  };
+
+  return throttle;
+};
+
+export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder, removeСhildByClass, getRandomFloatFromRange, setThrottle};
 

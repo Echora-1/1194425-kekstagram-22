@@ -6,10 +6,12 @@ import {sendData} from './server-connection.js';
 import {showSuccessfulMessage, showErrorMessage, errorMessageElement} from './status-messages.js';
 
 const SHOW_TIME = 5000;
+const FILE_TYPES = ['image/svg+xml', 'image/jpeg', 'image/png'];
 const bodyElement = document.querySelector('body');
 const mainElement = document.querySelector('main');
 const imageUploadFormElement = document.querySelector('.img-upload__form');
 const imageUploadButtonElement = imageUploadFormElement.querySelector('#upload-file');
+const imagePreviewElement = imageUploadFormElement.querySelector('img');
 const editFormElement = imageUploadFormElement.querySelector('.img-upload__overlay');
 const buttonCloseEditFormElement = imageUploadFormElement.querySelector('#upload-cancel');
 const hashtagInputElement = document.querySelector('.text__hashtags');
@@ -49,10 +51,13 @@ const onEditFormClosePressedButtonClose = (evt) => {
 
 imageUploadButtonElement.addEventListener('change', () => {
   let file = imageUploadButtonElement.files[0];
-  if(file) {
+  if(FILE_TYPES.includes(file.type)) {
     const reader = new FileReader();
 
-    reader.addEventListener('load', openEditForm);
+    reader.addEventListener('load', () => {
+      imagePreviewElement.src = reader.result;
+      openEditForm();
+    });
 
     reader.readAsDataURL(file);
   }
