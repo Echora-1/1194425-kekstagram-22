@@ -21,7 +21,7 @@ const submitButtonElement = document.querySelector('.img-upload__submit');
 const openEditForm = () => {
   editFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  imageUploadFormElement.addEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
+  bodyElement.addEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
   buttonCloseEditFormElement.addEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
 };
 
@@ -29,7 +29,7 @@ const closeEditForm = () => {
   editFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   imageUploadFormElement.reset();
-  imageUploadFormElement.removeEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
+  bodyElement.removeEventListener('keydown', (evt) => onEditFormClosePressedEsc(evt));
   buttonCloseEditFormElement.removeEventListener('click', (evt) => onEditFormClosePressedButtonClose(evt));
   resetScale();
   setOriginalState();
