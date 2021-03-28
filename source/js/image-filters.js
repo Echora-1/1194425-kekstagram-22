@@ -1,6 +1,5 @@
+import noUiSlider from 'nouislider';
 import {removeClasses} from './utils.js';
-
-/* global noUiSlider:readonly */
 
 const CHROME_OPTIONS = {
   range: {

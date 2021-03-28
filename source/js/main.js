@@ -1,3 +1,5 @@
+import 'nouislider/distribute/nouislider.css';
+
 import {} from './image-editing-form.js';
 import {showWarningMessage} from './warning-message.js'
 import {getData} from './server-connection.js';
