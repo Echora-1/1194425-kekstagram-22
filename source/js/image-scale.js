@@ -9,26 +9,26 @@ const previewСontainerElement = document.querySelector('.img-upload__preview');
 const imagePreviewElement = previewСontainerElement.querySelector('img');
 
 const resetScale = () => {
-  scaleValueElement.value = `${SCALE_DEFAULT_VALUE}%`;
   imagePreviewElement.style.transform = 'scale(1)';
+  scaleValueElement.value = `${SCALE_DEFAULT_VALUE}%`;
 };
 
-const decreaseScale = () => {
+const handleScaleDecrease = () => {
   if(Number.parseInt(scaleValueElement.value) > SCALE_MIN_VALUE) {
     imagePreviewElement.style.transform = `scale(${(parseInt(scaleValueElement.value) - SCALE_STEP) / 100})`;
     scaleValueElement.value = `${Number.parseInt(scaleValueElement.value) - SCALE_STEP}%`;
   }
 }
 
-const increaseScale = () => {
+const handleScaleIncrease = () => {
   if(Number.parseInt(scaleValueElement.value) < SCALE_MAX_VALUE) {
     imagePreviewElement.style.transform = `scale(${(parseInt(scaleValueElement.value) + SCALE_STEP) / 100})`;
     scaleValueElement.value = `${Number.parseInt(scaleValueElement.value) + SCALE_STEP}%`;
   }
 }
 
-decreaseButtonElement.addEventListener('click', decreaseScale)
-increaseButtonElement.addEventListener('click', increaseScale)
+decreaseButtonElement.addEventListener('click', handleScaleDecrease)
+increaseButtonElement.addEventListener('click', handleScaleIncrease)
 
 resetScale();
 

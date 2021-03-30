@@ -45,18 +45,18 @@ const onImageClick = (evt, src, description, likes,comments) => {
   const closeBigImage = () => {
     document.body.classList.remove('modal-open');
     bigImageContainerElement.classList.add('hidden');
-    bigImageCancelElement.removeEventListener('click', (evt) => onBigImageClosedСlickedСancel(evt));
-    document.removeEventListener('keydown', (evt) => onBigImageClosedPressedEsc(evt));
+    bigImageCancelElement.removeEventListener('click', (evt) => onBigImageСlickedСancel(evt));
+    document.removeEventListener('keydown', (evt) => onBigImagePressedEsc(evt));
     commentsLoaderElement.removeEventListener('click', onLoaderClick);
   }
 
-  const onBigImageClosedСlickedСancel = (evt) => {
+  const onBigImageСlickedСancel = (evt) => {
     if(isClick(evt)) {
       closeBigImage();
     }
   }
 
-  const onBigImageClosedPressedEsc = (evt) => {
+  const onBigImagePressedEsc = (evt) => {
     if(isEscPressed(evt)) {
       closeBigImage();
     }
@@ -65,8 +65,8 @@ const onImageClick = (evt, src, description, likes,comments) => {
   document.body.classList.add('modal-open');
   bigImageContainerElement.classList.remove('hidden');
 
-  bigImageCancelElement.addEventListener('click', (evt) => onBigImageClosedСlickedСancel(evt));
-  document.addEventListener('keydown', (evt) => onBigImageClosedPressedEsc(evt));
+  bigImageCancelElement.addEventListener('click', (evt) => onBigImageСlickedСancel(evt));
+  document.addEventListener('keydown', (evt) => onBigImagePressedEsc(evt));
 
   bigImageElement.src = src;
   descriptionImageElement.textContent = description;

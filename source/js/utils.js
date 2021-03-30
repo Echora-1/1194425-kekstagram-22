@@ -69,5 +69,9 @@ const setThrottle = (func, ms) => {
   return throttle;
 };
 
-export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder, removeСhildByClass, getRandomFloatFromRange, setThrottle};
+const getArrayWords = (string) => {
+  return string.split(' ').filter((element) => element.length > 0 );
+}
+
+export {isEscPressed, isClick, removeClasses, isActiveElement, addTemporaryRedBorder, removeСhildByClass, getRandomFloatFromRange, setThrottle, getArrayWords};
 

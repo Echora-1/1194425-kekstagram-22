@@ -74,6 +74,9 @@ const setOptionsEffect = (currentEffect) => {
       break;
     case 'none':
       setOriginalState();
+      break;
+    default:
+      break;
   }
 };
 
@@ -89,6 +92,8 @@ const setStyleEffect = (currentEffect) => {
       return 'blur';
     case 'heat':
       return 'brightness';
+    default:
+      break;
   }
 };
 

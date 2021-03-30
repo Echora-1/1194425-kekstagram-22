@@ -1,7 +1,7 @@
 import {isEscPressed, isClick, isActiveElement, addTemporaryRedBorder} from './utils.js';
 import {resetScale} from './image-scale.js';
 import {setOriginalState} from './image-filters.js';
-import {} from './hashtag-validation.js';
+import './hashtag-validation.js';
 import {sendData} from './server-connection.js';
 import {showSuccessfulMessage, showErrorMessage, errorMessageElement} from './status-messages.js';
 
@@ -83,5 +83,3 @@ const onInputCheck = () => {
 }
 
 submitButtonElement.addEventListener('click', onInputCheck);
-
-export {};

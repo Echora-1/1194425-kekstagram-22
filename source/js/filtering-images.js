@@ -15,7 +15,7 @@ const setActiveStatus = (evt) => {
   }
 }
 
-const onFilterDefaultPresed = (evt, photos) => {
+const handleDefaultFilterClick = (evt, photos) => {
   setActiveStatus(evt);
   removeСhildByClass(imageContainerElement, 'picture');
   photos.forEach(item => {
@@ -23,7 +23,7 @@ const onFilterDefaultPresed = (evt, photos) => {
   })
 }
 
-const onFilterRandomPresed = (evt, photos) => {
+const handleFilterRandomClick = (evt, photos) => {
   const tenRandomIndices = [];
   const tenRandomPhotos = [];
 
@@ -41,7 +41,7 @@ const onFilterRandomPresed = (evt, photos) => {
   })
 }
 
-const onFilterDiscussedPresed = (evt, photos) => {
+const handleDiscussedFilterClick = (evt, photos) => {
   const sortPhotos = photos.slice().sort((firstPhoto, secondPhoto) => secondPhoto.comments.length - firstPhoto.comments.length);
   setActiveStatus(evt);
   removeСhildByClass(imageContainerElement, 'picture');
@@ -50,17 +50,19 @@ const onFilterDiscussedPresed = (evt, photos) => {
   })
 }
 
-const onFilterButtonsClick = (evt, photos) => {
+const handleFilterButtonsClick = (evt, photos) => {
   if (evt.target.classList.contains('img-filters__button')) {
     switch(evt.target.id) {
       case 'filter-default':
-        onFilterDefaultPresed(evt, photos);
+        handleDefaultFilterClick(evt, photos);
         break;
       case 'filter-random':
-        onFilterRandomPresed(evt, photos);
+        handleFilterRandomClick(evt, photos);
         break;
       case 'filter-discussed':
-        onFilterDiscussedPresed(evt, photos);
+        handleDiscussedFilterClick(evt, photos);
+        break;
+      default:
         break;
     }
   }
@@ -68,8 +70,7 @@ const onFilterButtonsClick = (evt, photos) => {
 
 const showImageFilter = (photos) => {
   imageFilterElement.classList.remove('img-filters--inactive');
-  filterButtonsContainerElement.addEventListener('click', setThrottle((evt) => onFilterButtonsClick(evt, photos), THROTTLE_TIME));
+  filterButtonsContainerElement.addEventListener('click', setThrottle((evt) => handleFilterButtonsClick(evt, photos), THROTTLE_TIME));
 }
-
 
 export {showImageFilter};

@@ -16,8 +16,8 @@ const sendData = (onError, onSuccess, body) => {
         onError();
       }
     })
-    .catch(() => {
-      onError();
+    .catch((err) => {
+      onError(err);
     });
 };
 
@@ -33,8 +33,8 @@ const getData = (onError,  onSuccess) => {
     .then((data) => {
       onSuccess(data);
     })
-    .catch(() => {
-      onError();
+    .catch((err) => {
+      onError(err);
     });
 }
 
